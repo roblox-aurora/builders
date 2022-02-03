@@ -1,6 +1,6 @@
 {
   "name": "@rbxts/builders",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Gives builder APIs to common parameter objects on Roblox",
   "main": "out/init.lua",
   "scripts": {
@@ -11,12 +11,16 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "types": "out/index.d.ts",
   "files": [
     "out",
     "!**/*.tsbuildinfo"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roblox-aurora/builders.git"
+  },
   "publishConfig": {
     "access": "public"
   },
