@@ -1,6 +1,6 @@
 {
   "name": "@rbxts/builders",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Gives builder APIs to common parameter objects on Roblox",
   "main": "out/init.lua",
   "scripts": {

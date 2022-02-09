@@ -1,25 +1,43 @@
 export class RaycastParamsBuilder {
-	private params = new RaycastParams();
+	public filterDescendantsInstances = new Array<Instance>();
+	public filterType: Enum.RaycastFilterType = Enum.RaycastFilterType.Blacklist;
+	public ignoreWater = false;
+	public collisionGroup = "Default";
 
 	public SetFilter(filterDescendantsInstances: Instance[], filterType?: Enum.RaycastFilterType) {
-		this.params.FilterDescendantsInstances = filterDescendantsInstances;
+		this.filterDescendantsInstances = filterDescendantsInstances;
 		if (filterType) {
-			this.params.FilterType = filterType;
+			this.filterType = filterType;
 		}
 		return this;
 	}
 
+	public AddToFilter(...filterItem: Instance[]) {
+		this.filterDescendantsInstances = [...this.filterDescendantsInstances, ...filterItem];
+		return this;
+	}
+
+	public RemoveFromFilter(...filterItem: Instance[]) {
+		this.filterDescendantsInstances = this.filterDescendantsInstances.filter((f) => !filterItem.includes(f));
+		return this;
+	}
+
 	public SetIgnoreWater(ignoreWater: boolean) {
-		this.params.IgnoreWater = ignoreWater;
+		this.ignoreWater = ignoreWater;
 		return this;
 	}
 
 	public SetCollisionGroup(collisionGroupId: string) {
-		this.params.CollisionGroup = collisionGroupId;
+		this.collisionGroup = collisionGroupId;
 		return this;
 	}
 
 	public Build() {
-		return this.params;
+		const params = new RaycastParams();
+		params.FilterDescendantsInstances = this.filterDescendantsInstances;
+		params.CollisionGroup = this.collisionGroup;
+		params.FilterType = this.filterType;
+		params.IgnoreWater = this.ignoreWater;
+		return params;
 	}
 }

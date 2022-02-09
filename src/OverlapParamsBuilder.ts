@@ -1,26 +1,35 @@
 export class OverlapParamsBuilder {
-	private params = new OverlapParams();
+	private filterDescendantsInstances = new Array<Instance>();
+	private filterType: Enum.RaycastFilterType = Enum.RaycastFilterType.Blacklist;
+	private maxParts = 0;
+	private collisionGroupId = "Default";
+
 	public constructor() {}
 
 	public SetMaxParts(maxParts: number) {
-		this.params.MaxParts = maxParts;
+		this.maxParts = maxParts;
 		return this;
 	}
 
 	public SetCollisionGroup(collisionGroupId: string) {
-		this.params.CollisionGroup = collisionGroupId;
+		this.collisionGroupId = collisionGroupId;
 		return this;
 	}
 
 	public SetFilter(filterDescendantsInstances: Instance[], filterType?: Enum.RaycastFilterType) {
-		this.params.FilterDescendantsInstances = filterDescendantsInstances;
+		this.filterDescendantsInstances = filterDescendantsInstances;
 		if (filterType) {
-			this.params.FilterType = filterType;
+			this.filterType = filterType;
 		}
 		return this;
 	}
 
 	public Build() {
-		return this.params;
+		const params = new OverlapParams();
+		params.FilterType = this.filterType;
+		params.FilterDescendantsInstances = this.filterDescendantsInstances;
+		params.CollisionGroup = this.collisionGroupId;
+		params.MaxParts = this.maxParts;
+		return params;
 	}
 }
