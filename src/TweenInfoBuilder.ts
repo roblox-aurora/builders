@@ -18,6 +18,7 @@ export class TweenInfoBuilder {
 
 	public SetDelayTime(delayTime: number) {
 		this.delayTime = delayTime;
+		return this;
 	}
 
 	public SetReverses(reverses: boolean) {
